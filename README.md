@@ -1,4 +1,4 @@
-# PostureGuard 🧘‍♂️
+# PostureGuard
 
 AI-powered posture & focus monitor that runs in your macOS menubar. Takes periodic snapshots to detect bad posture and phone distractions without keeping your camera always on.
 
@@ -33,7 +33,7 @@ pip install -r requirements.txt
 python menubar_app.py
 ```
 
-The app appears as a 🟢 icon in your menubar. Right-click to:
+The app appears as a 🦸 icon in your menubar. Right-click to:
 - **✓ Monitoring** - Pause/resume monitoring
 - **Interval** - Change snapshot frequency
 - **Quit** - Exit the app
