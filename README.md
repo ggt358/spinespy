@@ -4,7 +4,7 @@ AI-powered posture & focus monitor that runs in your macOS menubar. Takes period
 
 ## Features
 
-- **Menubar App** - Lightweight icon that shows your posture status (🟢/🔴)
+- **Menubar App** - Lightweight icon that shows your posture status (🦸 hero / 🧟 zombie)
 - **Periodic Snapshots** - Camera opens briefly every N minutes, then closes
 - **Posture Detection** - Detects slouching forward and side tilting using MediaPipe Pose
 - **Phone Detection** - Spots your phone using YOLOv8 object detection
@@ -44,7 +44,7 @@ The app appears as a 🟢 icon in your menubar. Right-click to:
 2. **MediaPipe Pose** analyzes the image for slouching or tilting
 3. **YOLOv8** checks for phones in the frame
 4. Camera closes immediately after analysis
-5. Menubar icon updates: 🟢 (good) or 🔴 (bad posture)
+5. Menubar icon updates: 🦸 (good) or 🧟 (bad posture)
 6. After 5 consecutive bad snapshots → plays alert sound
 
 ## Configuration

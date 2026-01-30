@@ -5,8 +5,11 @@ __pycache__/
 venv/
 .env
 
-# YOLO model weights
-*.pt
+# Testing and linting cache
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # IDE
 .vscode/
@@ -14,3 +17,10 @@ venv/
 
 # OS
 .DS_Store
+
+# ML models (downloaded at runtime)
+pose_landmarker.task
+*.pt
+
+# Debug files
+debug_snapshot.jpg
