@@ -5,9 +5,18 @@ from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 from ultralytics import YOLO
 import os
+import sys
 import time
 import threading
 import urllib.request
+
+
+def resource_path(relative_path):
+    """Get path to resource, works for dev and PyInstaller."""
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return relative_path
+
 
 # Icons
 ICON_GOOD = "🦸"
@@ -19,7 +28,7 @@ TILT_THRESHOLD = 0.05
 BAD_STREAK_LIMIT = 5
 
 # Download pose model if needed
-MODEL_PATH = "pose_landmarker.task"
+MODEL_PATH = resource_path("pose_landmarker.task")
 MODEL_URL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task"
 
 if not os.path.exists(MODEL_PATH):
@@ -32,7 +41,7 @@ options = vision.PoseLandmarkerOptions(base_options=base_options, output_segment
 pose_detector = vision.PoseLandmarker.create_from_options(options)
 
 # YOLO setup
-yolo = YOLO("yolov8n.pt")
+yolo = YOLO(resource_path("yolov8n.pt"))
 PHONE_CLASS_ID = 67
 
 
@@ -60,8 +69,13 @@ def detect_phone(frame):
     results = yolo(frame, verbose=False)
     for r in results:
         for box in r.boxes:
-            if int(box.cls[0]) == PHONE_CLASS_ID:
+            class_id = int(box.cls[0])
+            confidence = float(box.conf[0])
+            print(f"  [DEBUG] Detected class_id={class_id}, confidence={confidence:.2f}")
+            if class_id == PHONE_CLASS_ID:
+                print(f"  [DEBUG] ✓ Phone detected! (class {PHONE_CLASS_ID})")
                 return True
+    print(f"  [DEBUG] No phone detected (looking for class {PHONE_CLASS_ID})")
     return False
 
 
@@ -110,7 +124,7 @@ def take_snapshot(save_debug=False):
 def play_alert():
     """Play system alert sound."""
     threading.Thread(
-        target=lambda: os.system("afplay /System/Library/Sounds/Bong.aiff"),
+        target=lambda: os.system("afplay /System/Library/Sounds/Glass.aiff"),
         daemon=True,
     ).start()
 

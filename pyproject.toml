@@ -13,6 +13,10 @@ mediapipe = "^0.10.0"
 ultralytics = "^8.0.0"
 rumps = "^0.4.0"
 
+[tool.poetry.scripts]
+start = "menubar_app:PostureGuardApp.run"
+test-phone = "test_phone_detection:main"
+
 [[tool.poetry.source]]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cpu"

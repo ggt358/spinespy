@@ -10,7 +10,6 @@ venv/
 .ruff_cache/
 .coverage
 htmlcov/
-conftest.py
 
 # IDE
 .vscode/
@@ -25,4 +24,10 @@ pose_landmarker.task
 
 # Debug files
 debug_snapshot.jpg
+
+# Build artifacts
+build/
+dist/
+*.spec
+*.dmg
 SETUP_SUMMARY.md
