@@ -27,6 +27,10 @@ SLOUCH_THRESHOLD = 0.1
 TILT_THRESHOLD = 0.05
 BAD_STREAK_LIMIT = 5
 
+# Calibration baseline (set via calibrate())
+baseline_lean = 0.0
+baseline_tilt = 0.0
+
 # Download pose model if needed
 MODEL_PATH = resource_path("pose_landmarker.task")
 MODEL_URL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task"
@@ -41,12 +45,12 @@ options = vision.PoseLandmarkerOptions(base_options=base_options, output_segment
 pose_detector = vision.PoseLandmarker.create_from_options(options)
 
 # YOLO setup
-yolo = YOLO(resource_path("yolov8n.pt"))
+yolo = YOLO(resource_path("yolo26s.pt"))
 PHONE_CLASS_ID = 67
 
 
-def check_posture(landmarks):
-    """Check for slouching and side tilt."""
+def get_posture_metrics(landmarks):
+    """Extract forward lean and tilt from landmarks."""
     nose = landmarks[0]
     left_shoulder = landmarks[11]
     right_shoulder = landmarks[12]
@@ -54,12 +58,54 @@ def check_posture(landmarks):
     shoulder_z = (left_shoulder.z + right_shoulder.z) / 2
     forward_lean = shoulder_z - nose.z
     tilt = abs(left_shoulder.y - right_shoulder.y)
+    return forward_lean, tilt
 
-    print(f"  [DEBUG] forward_lean={forward_lean:.3f} (threshold={SLOUCH_THRESHOLD}), tilt={tilt:.3f} (threshold={TILT_THRESHOLD})")
 
-    if forward_lean >= SLOUCH_THRESHOLD:
+def calibrate():
+    """Capture current posture as the baseline."""
+    global baseline_lean, baseline_tilt
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Calibration failed: camera error")
+        return False
+
+    time.sleep(0.5)
+    for _ in range(5):
+        cap.read()
+
+    ret, frame = cap.read()
+    cap.release()
+    if not ret:
+        print("Calibration failed: capture error")
+        return False
+
+    frame = cv2.flip(frame, 1)
+    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+    results = pose_detector.detect(mp_image)
+
+    if results.pose_landmarks and len(results.pose_landmarks) > 0:
+        lean, tilt = get_posture_metrics(results.pose_landmarks[0])
+        baseline_lean = lean
+        baseline_tilt = tilt
+        print(f"✓ Calibrated: baseline_lean={baseline_lean:.3f}, baseline_tilt={baseline_tilt:.3f}")
+        return True
+
+    print("Calibration failed: no pose detected")
+    return False
+
+
+def check_posture(landmarks):
+    """Check for slouching and side tilt relative to calibrated baseline."""
+    forward_lean, tilt = get_posture_metrics(landmarks)
+    lean_delta = forward_lean - baseline_lean
+    tilt_delta = tilt - baseline_tilt
+
+    print(f"  [DEBUG] lean_delta={lean_delta:.3f} (threshold={SLOUCH_THRESHOLD}), tilt_delta={tilt_delta:.3f} (threshold={TILT_THRESHOLD})")
+
+    if lean_delta >= SLOUCH_THRESHOLD:
         return True, "Slouching"
-    if tilt >= TILT_THRESHOLD:
+    if tilt_delta >= TILT_THRESHOLD:
         return True, "Tilting"
     return False, None
 
@@ -148,6 +194,7 @@ class PostureGuardApp(rumps.App):
             self.monitoring_item,
             self.interval_menu,
             None,
+            rumps.MenuItem("Calibrate", callback=self.run_calibration),
             rumps.MenuItem("Save Snapshot", callback=lambda _: take_snapshot(save_debug=True)),
             rumps.MenuItem("Test Alert", callback=lambda _: play_alert()),
             rumps.MenuItem("Quit", callback=rumps.quit_application),
@@ -155,6 +202,18 @@ class PostureGuardApp(rumps.App):
 
         self.timer = rumps.Timer(self.check_posture, self.interval)
         self.timer.start()
+
+        # Auto-calibrate on startup
+        threading.Thread(target=calibrate, daemon=True).start()
+
+    def run_calibration(self, _):
+        threading.Thread(target=self._calibrate_with_feedback, daemon=True).start()
+
+    def _calibrate_with_feedback(self):
+        if calibrate():
+            rumps.notification("SpineSpy", "Calibration complete", "Your good posture has been saved as baseline.")
+        else:
+            rumps.notification("SpineSpy", "Calibration failed", "Make sure you're visible to the camera.")
 
     def check_posture(self, _):
         if self.paused:
